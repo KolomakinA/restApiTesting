@@ -19,7 +19,7 @@ public class V2taskcollections {
         prop.setSbmUserPass("");
     }
 
-    @Test
+    @Test//actually we cannot delete task collections directly - otherwise we get sql constrain violation
     public void deleteTaskCollection(String tcId) throws IOException {
         String resURI = "rlc/rest/v2/taskcollections/" + tcId;
         String url = prop.getRlcURL()+ resURI;

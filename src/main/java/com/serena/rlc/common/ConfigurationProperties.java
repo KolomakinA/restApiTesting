@@ -4,9 +4,9 @@ package com.serena.rlc.common;
  * Created by akolomakin on 27.01.2017.
  */
 public class ConfigurationProperties {
-    public String rlcURL;
-    public String sbmUserName;
-    public String sbmUserPass;
+    private String rlcURL;
+    private String sbmUserName;
+    private String sbmUserPass;
 
     public ConfigurationProperties(){
         rlcURL="http://stl-qa-oalmt3/";
