@@ -20,7 +20,12 @@ public class Del {
         this.configPropertiesObject=configPropertiesObject;
     }
 
-    public void httpDel() throws IOException {
-        Request.Delete(url).addHeader("Authorization", "Basic YWRtaW46").execute();
+    public String httpDel() throws IOException {
+        try {
+            return Request.Delete(url).addHeader("Authorization", "Basic YWRtaW46").execute().returnContent().toString();
+        }
+        catch (org.apache.http.client.HttpResponseException e){
+            return "Http code " + e.getStatusCode() + " : " + e.getMessage();
+        }
     }
 }

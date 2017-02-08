@@ -13,7 +13,7 @@ public class TestRunner {
         p.findPluginIdentifiers();
         p.findPugins();
 
-
+        rp.deleteTaskCollection("100000");
     }
 }
 

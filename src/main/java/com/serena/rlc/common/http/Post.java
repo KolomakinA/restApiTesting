@@ -39,7 +39,12 @@ public class Post {
     }
 
     public String httpPost() throws IOException {
-        return Request.Post(url).addHeader("Authorization", "Basic YWRtaW46").addHeader("Content-Type","application/json").
-                bodyString(jsonBody, APPLICATION_JSON).execute().returnContent().toString();
+        try {
+            return Request.Post(url).addHeader("Authorization", "Basic YWRtaW46").addHeader("Content-Type","application/json").
+                    bodyString(jsonBody, APPLICATION_JSON).execute().returnContent().toString();
+        }
+        catch (org.apache.http.client.HttpResponseException e){
+            return "Http code " + e.getStatusCode() + " : " + e.getMessage();
+        }
     }
 }

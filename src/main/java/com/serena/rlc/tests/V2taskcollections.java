@@ -20,21 +20,12 @@ public class V2taskcollections {
     }
 
     @Test
-    public void getTaskCollections () throws IOException {
-        String resURI = "rlc/rest/plugin/findPluginIdentifiers";
-        String url = prop.getRlcURL()+ resURI; //setting an URL
-    }
-
-    @Test
-    public void createTaskCollecion () throws  IOException {
-
-    }
-
-    @org.junit.Test
     public void deleteTaskCollection(String tcId) throws IOException {
         String resURI = "rlc/rest/v2/taskcollections/" + tcId;
         String url = prop.getRlcURL()+ resURI;
-        Del delete = new Del(url);
+        Del delete= new Del(url);
+        String response = delete.httpDel();
+        System.out.println(response);
     }
 
 }

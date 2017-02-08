@@ -27,7 +27,12 @@ public class Put {
     }
 
     public String httpPut() throws IOException {
-        return Request.Put(url).addHeader("Authorization", "Basic YWRtaW46").addHeader("Content-Type","application/json").
-                bodyString(jsonBody, APPLICATION_JSON).execute().returnContent().toString();
+        try {
+            return Request.Put(url).addHeader("Authorization", "Basic YWRtaW46").addHeader("Content-Type","application/json").
+                    bodyString(jsonBody, APPLICATION_JSON).execute().returnContent().toString();
+        }
+        catch (org.apache.http.client.HttpResponseException e){
+            return "Http code " + e.getStatusCode() + " : " + e.getMessage();
+        }
     }
 }

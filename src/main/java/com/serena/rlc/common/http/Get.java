@@ -22,6 +22,11 @@ public class Get {
     }
 
     public String httpGet () throws IOException {
-        return Request.Get(url).addHeader("Authorization", "Basic YWRtaW46").execute().returnContent().toString();
+        try {
+            return Request.Get(url).addHeader("Authorization", "Basic YWRtaW46").execute().returnContent().toString();
+        }
+        catch (org.apache.http.client.HttpResponseException e){
+            return "Http code " + e.getStatusCode() + " : " + e.getMessage();
+        }
     }
 }
