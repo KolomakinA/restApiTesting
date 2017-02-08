@@ -1,6 +1,7 @@
 package com.serena.rlc.tests;
 
 import com.serena.rlc.common.ConfigurationProperties;
+import com.serena.rlc.common.http.Del;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -20,12 +21,20 @@ public class V2taskcollections {
 
     @Test
     public void getTaskCollections () throws IOException {
-
+        String resURI = "rlc/rest/plugin/findPluginIdentifiers";
+        String url = prop.getRlcURL()+ resURI; //setting an URL
     }
 
     @Test
-    public void postTaskCollecion () throws  IOException {
+    public void createTaskCollecion () throws  IOException {
 
+    }
+
+    @org.junit.Test
+    public void deleteTaskCollection(String tcId) throws IOException {
+        String resURI = "rlc/rest/v2/taskcollections/" + tcId;
+        String url = prop.getRlcURL()+ resURI;
+        Del delete = new Del(url);
     }
 
 }

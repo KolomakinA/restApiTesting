@@ -23,39 +23,22 @@ import static org.apache.http.entity.ContentType.APPLICATION_JSON;
  * Created by akolomakin on 31.01.2017.
  */
 public class Post {
-//    private final String USER_AGENT = "Mozilla/5.0";
-//    public HttpResponse httpPost(String url) throws IOException {
-//
-//        HttpClient client = HttpClientBuilder.create().build();
-//        HttpPost post = new HttpPost(url);
-//
-//        // add header
-//        post.setHeader("User-Agent", USER_AGENT);
-//
-//        List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
-//        urlParameters.add(new BasicNameValuePair("sn", "C02G8416DRJM"));
-//        urlParameters.add(new BasicNameValuePair("cn", ""));
-//        urlParameters.add(new BasicNameValuePair("locale", ""));
-//        urlParameters.add(new BasicNameValuePair("caller", ""));
-//        urlParameters.add(new BasicNameValuePair("num", "12345"));
-//
-//        post.setEntity(new UrlEncodedFormEntity(urlParameters));
-//
-//        HttpResponse response = client.execute(post);
-//        System.out.println("Response Code : "
-//                + response.getStatusLine().getStatusCode());
-//
-//        BufferedReader rd = new BufferedReader(
-//                new InputStreamReader(response.getEntity().getContent()));
-//
-//        StringBuffer result = new StringBuffer();
-//        String line = "";
-//        while ((line = rd.readLine()) != null) {
-//            result.append(line);
-//        }
-//        return response;
-//    }
-    public String httpPost(String url, ConfigurationProperties confPropObject, String jsonBody) throws IOException {
+    private String url;
+    private ConfigurationProperties confPropObject;
+    private String jsonBody;
+
+    public Post(String url, String jsonBody) {
+        this.url=url;
+        this.jsonBody=jsonBody;
+    }
+
+    public Post(String url, String jsonBody, ConfigurationProperties confPropObject) {
+        this.url = url;
+        this.confPropObject = confPropObject;
+        this.jsonBody = jsonBody;
+    }
+
+    public String httpPost() throws IOException {
         return Request.Post(url).addHeader("Authorization", "Basic YWRtaW46").addHeader("Content-Type","application/json").
                 bodyString(jsonBody, APPLICATION_JSON).execute().returnContent().toString();
     }

@@ -1,9 +1,5 @@
 package com.serena.rlc.common;
 import org.apache.commons.codec.binary.Base64;
-import org.json.JSONObject;
-
-import java.io.File;
-import java.net.URL;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;

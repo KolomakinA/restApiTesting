@@ -30,10 +30,6 @@ public class Plugin {
         String url = prop.getRlcURL()+ resURI; //setting an URL
         Get getResource = new Get();
         String response = getResource.httpGet(url, prop).toString();
-//        JSONObject obj = new JSONObject(response);
-//        JSONObject expectedObj = new JSONObject(expectedJson);
-
-        //JSONAssert.assertEquals(expectedJson, response, false);
         System.out.println(response);
     }
 
