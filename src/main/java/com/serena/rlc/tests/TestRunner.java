@@ -23,12 +23,12 @@ public class TestRunner {
         //System.out.println(rp.getTaskCollections().toString());
 
 
-        String tcID = rp.postTaskCollection("My super TC 1");
-//        System.out.println(tcID);
-        String jsonFromGetTC = rp.getTaskCollections();
+        String tcID = rp.postTaskCollection("My super TC 1");//Creating a task collection
+        String jsonFromGetTC = rp.getTaskCollections();//Getting list of task collections
 
-        if (jsonFromGetTC.contains(tcID)){
-            rp.createTaskForATC(tcID,provInstUUID,"Rest task");//creating a task for the task collection
+        if (jsonFromGetTC.contains(tcID)){//the list should contain a ID of our task collection
+            System.out.println();
+            rp.createTaskForATC(tcID,provInstUUID,"Rest task");//creating a task for the task collection, using TC id, provider instance UUID and a task name
             System.out.println("The end!");
         }else {
             System.out.println("We were not able to find TaskCollectionID in the list of existing TaskCollection");
