@@ -5,6 +5,7 @@ import com.serena.rlc.common.Utils;
 import com.serena.rlc.common.http.Del;
 import com.serena.rlc.common.http.Get;
 import com.serena.rlc.common.http.Post;
+import com.serena.rlc.common.http.Put;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.testng.annotations.Test;
@@ -107,5 +108,20 @@ public class V2taskcollections {
         }
 
     }
+
+    public void receiveNumberofTC(){
+    }
+
+    public void srartTCRun() throws IOException{
+        //PUT: http://stl-qa-oalmt3/rlc/rest/v2/taskcollections/100089/executions/20/start?
+        Put srartRun = new Put("http://stl-qa-oalmt3/rlc/rest/v2/taskcollections/100008/executions/32/start","");
+        System.out.println("START");
+        srartRun.httpPut();
+            }
+    public boolean checkRunExecution(){
+
+        return true;
+    }
+
 }
 

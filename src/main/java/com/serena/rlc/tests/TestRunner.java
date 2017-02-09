@@ -43,11 +43,13 @@ public class TestRunner {
         rp.createRunforTaskClooection(tcID);
 
         //Receive number of the Run
-
+        rp.receiveNumberofTC();
 
         //Start TaskCollectionRun PUT: http://stl-qa-oalmt3/rlc/rest/v2/taskcollections/100089/executions/20/start?
+        rp.srartTCRun();
 
         //Check Taskcollection Run status GET:  http://stl-qa-oalmt3/rlc/rest/v2/taskcollections/100089/executions/20/
+        rp.checkRunExecution();
 
 
     }
