@@ -36,4 +36,20 @@ public class ConfigurationProperties {
     }
 
     public void setSbmUserPass(String sbmUserPass) { this.sbmUserPass = sbmUserPass; }
+
+    public String getCreatedTCId() {
+        return createdTCId;
+    }
+
+    public void setCreatedTCId(String createdTCId) {
+        this.createdTCId = createdTCId;
+    }
+
+    public String getMockEnvironmentId() {
+        return mockEnvironmentId;
+    }
+
+    public void setMockEnvironmentId(String mockEnvironmentId) {
+        this.mockEnvironmentId = mockEnvironmentId;
+    }
 }

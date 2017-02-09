@@ -23,6 +23,7 @@ public class V2taskcollections {
         prop.setRlcURL("http://stl-qa-oalmt3/");
         prop.setSbmUserName("admin");
         prop.setSbmUserPass("");
+        prop.setCreatedTCId("");
     }
 
 //    @Test//actually we cannot delete task collections directly - otherwise we get sql constrain violation
@@ -34,24 +35,23 @@ public class V2taskcollections {
 //        System.out.println(response);
 //    }
 
-    @Test
+    @Test //Get list of task collections
     public String getTaskCollections() throws  IOException{
         String resURI = "rlc/rest/v2/taskcollections/";
         String url = prop.getRlcURL()+ resURI;
         Get httpGet = new Get(url);
         return httpGet.httpGet();
-        //JSONObject js = new JSONObject(response);;
-//        if (js.getJSONArray("localReturn").length() == 0){
-//            System.out.println("RLC does not have any task collections created");
-//        }
-//        else{
-//            JSONArray jsa = new JSONArray(js.getJSONArray("localReturn"));
-//            return jsa;
-//        }
-        //return response;
     }
 
-    @Test
+    @Test//get particular task collection
+    public String getTaskCollections(String tcid) throws  IOException {
+        String resURI = "rlc/rest/v2/taskcollections/" + tcid;
+        String url = prop.getRlcURL() + resURI;
+        Get httpGet = new Get(url);
+        return httpGet.httpGet();
+    }
+
+    @Test//Create task collection with a specified name
     public String postTaskCollection(String tc_name) throws IOException{// String env_id, String env_name
         Utils utils = new Utils();
         String file = utils.readFile("resources\\jsonTemplates\\postTaskCollection.json");//read a json template
@@ -68,7 +68,16 @@ public class V2taskcollections {
        //System.out.println(jso.toString());
 
         //System.out.println("id_" + (jso.getJSONObject("localReturn")).get("id"));
+        prop.setCreatedTCId(jso.getJSONObject("localReturn").get("id").toString());
         return jso.getJSONObject("localReturn").get("id").toString();
+
+    }
+
+    @org.junit.Test
+    public void createTaskForATC(){
+        String resURI = "rlc/rest/v2/taskcollections/" + prop.getCreatedTCId() + "/tasks";//making an URL
+        String url = prop.getRlcURL()+ resURI;
+
 
     }
 }

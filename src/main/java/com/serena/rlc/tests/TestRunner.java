@@ -15,8 +15,11 @@ public class TestRunner {
 
         //System.out.println(rp.getTaskCollections().toString());
 
-        System.out.println();
-        rp.postTaskCollection("My super TC 1");
+
+        String tcID = rp.postTaskCollection("My super TC 1");
+        System.out.println("TCID = " + tcID);
+        String jsonFromGetTC = rp.getTaskCollections();
+        System.out.println(jsonFromGetTC);
     }
 }
 
