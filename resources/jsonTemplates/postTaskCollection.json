@@ -1,0 +1,20 @@
+{
+    "upgradedFromRequest": null,
+    "properties": {
+        "groupEnv": " ",
+        "RELEASE_PACKAGE": " ",
+        "groupEnvInitial": " ",
+        "env_1": "0"
+    },
+    "id": null,
+    "name": "%TC_NAME%",
+    "parent_task_collection_id": null,
+    "origin": null,
+    "environments": [
+      {
+          "properties": {},
+          "environment_id": "9999:9",
+          "name": "Mock Environment"
+      }
+    ]
+}
