@@ -13,7 +13,10 @@ public class TestRunner {
 //        p.findPluginIdentifiers();
 //        p.findPugins();
 
-        System.out.println(rp.getTaskCollections().toString());
+        //System.out.println(rp.getTaskCollections().toString());
+
+        System.out.println();
+        rp.postTaskCollection("My super TC 1");
     }
 }
 

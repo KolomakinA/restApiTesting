@@ -1,12 +1,15 @@
 package com.serena.rlc.tests;
 
 import com.serena.rlc.common.ConfigurationProperties;
+import com.serena.rlc.common.Utils;
 import com.serena.rlc.common.http.Del;
 import com.serena.rlc.common.http.Get;
+import com.serena.rlc.common.http.Post;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.testng.annotations.Test;
 
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -32,12 +35,12 @@ public class V2taskcollections {
 //    }
 
     @Test
-    public JSONObject getTaskCollections() throws  IOException{
+    public String getTaskCollections() throws  IOException{
         String resURI = "rlc/rest/v2/taskcollections/";
         String url = prop.getRlcURL()+ resURI;
         Get httpGet = new Get(url);
-        String response=httpGet.httpGet();
-        JSONObject js = new JSONObject(response);;
+        return httpGet.httpGet();
+        //JSONObject js = new JSONObject(response);;
 //        if (js.getJSONArray("localReturn").length() == 0){
 //            System.out.println("RLC does not have any task collections created");
 //        }
@@ -45,6 +48,28 @@ public class V2taskcollections {
 //            JSONArray jsa = new JSONArray(js.getJSONArray("localReturn"));
 //            return jsa;
 //        }
-        return js;
+        //return response;
+    }
+
+    @Test
+    public String postTaskCollection(String tc_name) throws IOException{// String env_id, String env_name
+        Utils utils = new Utils();
+        String file = utils.readFile("resources\\jsonTemplates\\postTaskCollection.json");//read a json template
+        file = file.replace("%TC_NAME%", tc_name);
+
+        String resURI = "rlc/rest/v2/taskcollections/";//making an URL
+        String url = prop.getRlcURL()+ resURI;
+
+        Post httpPost = new Post(url,file);//executing POST
+
+        JSONObject jso = new JSONObject(file);
+        JSONObject jsoC = new JSONObject(jso.getJSONObject("localReturn"));
+        if (jsoC.get("id") == null){
+            System.out.println("null");
+        }
+        else System.out.println(jsoC.get("id"));
+
+        return httpPost.httpPost();
     }
 }
+

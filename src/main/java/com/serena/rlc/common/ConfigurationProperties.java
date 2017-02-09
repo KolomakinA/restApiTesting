@@ -7,11 +7,14 @@ public class ConfigurationProperties {
     private String rlcURL;
     private String sbmUserName;
     private String sbmUserPass;
-
+    private String createdTCId;
+    private String mockEnvironmentId;
     public ConfigurationProperties(){
-        rlcURL="http://stl-qa-oalmt3/";
-        sbmUserName="Admin";
-        sbmUserPass="";
+        this.rlcURL="http://stl-qa-oalmt3/";
+        this.sbmUserName="admin";
+        this.sbmUserPass="";
+        this.createdTCId="";
+        this.mockEnvironmentId="9999:9";
     }
 
     public String getRlcURL() { return rlcURL; }
