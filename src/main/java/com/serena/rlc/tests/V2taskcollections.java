@@ -69,7 +69,6 @@ public class V2taskcollections {
 
     }
 
-
     public String createTaskForATC(String tcID, String provInstUUID, String taskName) throws IOException {
         String resURI = "rlc/rest/v2/taskcollections/" + tcID + "/tasks";//making an URL
         String url = prop.getRlcURL()+ resURI;
@@ -84,6 +83,28 @@ public class V2taskcollections {
         String postResult = httpPost.httpPost();
 
         return postResult;
+
+    }
+
+    public String createRunforTaskClooection(String tcID) throws IOException{
+        // POST http://stl-qa-oalmt3/rlc/rest/v2/taskcollections/100089/executions?
+        // {"environment": {"environment_id": "1012:1"	}}
+
+        String urlTemp = "rlc/rest/v2/taskcollections/" + "100089/" + "/executions";
+        String url = prop.getRlcURL()+ urlTemp;
+
+        Utils utils = new Utils();
+
+        String prop = "{\"environment\":{\"environment_id\":\"1012:1\"\t}}";
+        Post run = new Post(url,prop);
+        try {
+            String postResult = run.httpPost();
+            System.out.println("res" + postResult);
+            return postResult;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "Error";
+        }
 
     }
 }

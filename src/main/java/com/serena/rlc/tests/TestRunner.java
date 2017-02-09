@@ -35,6 +35,21 @@ public class TestRunner {
             System.out.println("We were not able to find TaskCollectionID in the list of existing TaskCollection");
             System.exit(1);
         }
+
+        //Create Task POST: http://stl-qa-oalmt3/rlc/rest/v2/taskcollections/100089/tasks?
+
+        //CreateRunforTaskClooection  POST http://stl-qa-oalmt3/rlc/rest/v2/taskcollections/100089/executions?
+        // {"environment": {"environment_id": "1012:1"	}}
+        rp.createRunforTaskClooection(tcID);
+
+        //Receive number of the Run
+
+
+        //Start TaskCollectionRun PUT: http://stl-qa-oalmt3/rlc/rest/v2/taskcollections/100089/executions/20/start?
+
+        //Check Taskcollection Run status GET:  http://stl-qa-oalmt3/rlc/rest/v2/taskcollections/100089/executions/20/
+
+
     }
 }
 
