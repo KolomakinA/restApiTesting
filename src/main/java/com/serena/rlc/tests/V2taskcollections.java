@@ -61,12 +61,14 @@ public class V2taskcollections {
         String url = prop.getRlcURL()+ resURI;
 
         Post httpPost = new Post(url,file);//executing POST
+        String postResult = httpPost.httpPost();
+        //System.out.println(postResult);
 
-        JSONObject jso = new JSONObject(httpPost.httpPost());
-        System.out.println(jso.toString());
-        JSONObject jsoC = new JSONObject(jso.getJSONObject("localReturn"));
-        System.out.println(jsoC.opt("id").toString());
-        return "";
+       JSONObject jso = new JSONObject(postResult);
+       //System.out.println(jso.toString());
+
+        //System.out.println("id_" + (jso.getJSONObject("localReturn")).get("id"));
+        return jso.getJSONObject("localReturn").get("id").toString();
 
     }
 }

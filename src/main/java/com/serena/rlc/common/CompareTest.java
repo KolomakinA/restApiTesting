@@ -8,14 +8,13 @@ import org.json.JSONObject;
 public class CompareTest {
     private JSONObject obj;
     String sTF;
-
-
     public CompareTest(JSONObject obj, String sTF) {
         this.obj=obj;
         this.sTF=sTF;
     }
     public boolean findStringInJson () {
         String st = obj.toString();
+       // obj.getJSONArray("");
         if (st.contains(sTF)){
             return true;
         }
