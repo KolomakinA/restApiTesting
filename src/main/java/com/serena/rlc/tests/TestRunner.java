@@ -17,9 +17,14 @@ public class TestRunner {
 
 
         String tcID = rp.postTaskCollection("My super TC 1");
-        System.out.println("TCID = " + tcID);
+//        System.out.println(tcID);
         String jsonFromGetTC = rp.getTaskCollections();
-        System.out.println(jsonFromGetTC);
+        if (jsonFromGetTC.contains(tcID)){
+            rp.createTaskForATC(tcID);
+        }else {
+            System.out.println("We were not able to find TaskCollectionID in the list of existing TaskCollection");
+            System.exit(1);
+        }
     }
 }
 

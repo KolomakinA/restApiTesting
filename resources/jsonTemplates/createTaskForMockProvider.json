@@ -1,0 +1,64 @@
+{
+  "providerData": [{
+    "fieldName": "timeout",
+    "value": "0",
+    "displayName": "Timeout before send notification",
+    "description": "Timeout in sec when task will be finished",
+    "type": "TEXT",
+    "traits": null,
+    "displayValue": "0",
+    "extendedFields": []
+  }, {
+    "fieldName": "block_timeout",
+    "value": "0",
+    "displayName": "Timeout before execute",
+    "description": "Timeout in sec when task will be finished",
+    "type": "TEXT",
+    "traits": null,
+    "displayValue": "0",
+    "extendedFields": []
+  }, {
+    "fieldName": "task_status",
+    "value": "Success",
+    "displayName": "task_status",
+    "description": "Status which will be applied to current task. (Failure, Success, Cancelled)",
+    "type": "TEXT",
+    "traits": null,
+    "displayValue": "Success",
+    "extendedFields": []
+  }, {
+    "fieldName": "waitForCallback",
+    "value": null,
+    "displayName": "Wait for Callback",
+    "description": "Set this to No or False to set the execution status to \"Completed\" when the action is executed. The default value is Yes or True and status will be set to \"Pending\".",
+    "type": "BOOLEAN",
+    "traits": null,
+    "displayValue": null,
+    "extendedFields": []
+  }
+  ],
+  "task_environments": [{
+    "is_applicable": true,
+    "environment": {
+      "properties": {
+        "expanded": true
+      },
+      "environment_id": "%Env_ID%",
+      "name": "%Env_Name%"
+    },
+    "providerData": [],
+    "isHold": false,
+    "is_schedule_enabled": false,
+    "schedules": null
+  }
+  ],
+  "provider_instance_UUID": "%Prov_Inst_UUID%",
+  "title": "%Task_Title%",
+  "description": "-",
+  "action_display": "Run without Properties",
+  "action": "run_without_props",
+  "action_description": "Execute run action of the dummy mock provider without required properties.",
+  "properties": {
+    "needDu": false
+  }
+}
