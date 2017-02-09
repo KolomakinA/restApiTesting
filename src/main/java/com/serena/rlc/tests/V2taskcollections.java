@@ -26,16 +26,16 @@ public class V2taskcollections {
         prop.setCreatedTCId("");
     }
 
-//    @Test//actually we cannot delete task collections directly - otherwise we get sql constrain violation
-//    public void deleteTaskCollection(String tcId) throws IOException {
-//        String resURI = "rlc/rest/v2/taskcollections/" + tcId;
-//        String url = prop.getRlcURL()+ resURI;
-//        Del delete= new Del(url);
-//        String response = delete.httpDel();
-//        System.out.println(response);
-//    }
+//actually we cannot delete task collections directly - otherwise we get sql constrain violation
+    public void deleteTaskCollection(String tcId) throws IOException {
+        String resURI = "rlc/rest/v2/taskcollections/" + tcId;
+        String url = prop.getRlcURL()+ resURI;
+        Del delete= new Del(url);
+        String response = delete.httpDel();
+        System.out.println(response);
+    }
 
-    @Test //Get list of task collections
+     //Get list of task collections
     public String getTaskCollections() throws  IOException{
         String resURI = "rlc/rest/v2/taskcollections/";
         String url = prop.getRlcURL()+ resURI;
@@ -43,7 +43,7 @@ public class V2taskcollections {
         return httpGet.httpGet();
     }
 
-    @Test//get particular task collection
+    //get particular task collection
     public String getTaskCollections(String tcid) throws  IOException {
         String resURI = "rlc/rest/v2/taskcollections/" + tcid;
         String url = prop.getRlcURL() + resURI;
@@ -51,30 +51,26 @@ public class V2taskcollections {
         return httpGet.httpGet();
     }
 
-    @Test//Create task collection with a specified name
+    //Create task collection with a specified name
     public String postTaskCollection(String tc_name) throws IOException{// String env_id, String env_name
         Utils utils = new Utils();
         String file = utils.readFile("resources\\jsonTemplates\\postTaskCollection.json");//read a json template
-        file = file.replace("%TC_NAME%", tc_name);
+        file = file.replace("%TC_NAME%", tc_name);//put task collection name in to template
 
         String resURI = "rlc/rest/v2/taskcollections/";//making an URL
         String url = prop.getRlcURL()+ resURI;
 
         Post httpPost = new Post(url,file);//executing POST
         String postResult = httpPost.httpPost();
-        //System.out.println(postResult);
 
-       JSONObject jso = new JSONObject(postResult);
-       //System.out.println(jso.toString());
-
-        //System.out.println("id_" + (jso.getJSONObject("localReturn")).get("id"));
-        prop.setCreatedTCId(jso.getJSONObject("localReturn").get("id").toString());
+        JSONObject jso = new JSONObject(postResult);
+        prop.setCreatedTCId(jso.getJSONObject("localReturn").get("id").toString());//updating global variable and returning the task collection ID
         return jso.getJSONObject("localReturn").get("id").toString();
 
     }
 
-    @org.junit.Test
-    public void createTaskForATC(String tcID, String provInstUUID, String taskName) throws IOException {
+
+    public String createTaskForATC(String tcID, String provInstUUID, String taskName) throws IOException {
         String resURI = "rlc/rest/v2/taskcollections/" + tcID + "/tasks";//making an URL
         String url = prop.getRlcURL()+ resURI;
 
@@ -83,12 +79,11 @@ public class V2taskcollections {
         file = file.replace("%Prov_Inst_UUID%", provInstUUID);
         file = file.replace("%Env_ID%", prop.getMockEnvironmentId());
         file = file.replace("%Task_Title%", taskName);
+
         Post httpPost = new Post(url,file);//executing POST
         String postResult = httpPost.httpPost();
 
-        System.out.println(postResult);
-        //if ()
-
+        return postResult;
 
     }
 }
