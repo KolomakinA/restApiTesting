@@ -74,14 +74,20 @@ public class V2taskcollections {
     }
 
     @org.junit.Test
-    public void createTaskForATC(String tcID) throws IOException {
+    public void createTaskForATC(String tcID, String provInstUUID, String taskName) throws IOException {
         String resURI = "rlc/rest/v2/taskcollections/" + tcID + "/tasks";//making an URL
         String url = prop.getRlcURL()+ resURI;
 
         Utils utils = new Utils();
         String file = utils.readFile("resources\\jsonTemplates\\postTaskCollection.json");//read a json template
-        //file = file.replace("%TC_NAME%", tc);
+        file = file.replace("%Prov_Inst_UUID%", provInstUUID);
+        file = file.replace("%Env_ID%", prop.getMockEnvironmentId());
+        file = file.replace("%Task_Title%", taskName);
 
+        Post httpPost = new Post(url,file);//executing POST
+        String postResult = httpPost.httpPost();
+
+        System.out.println(postResult);
 
 
     }

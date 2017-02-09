@@ -44,7 +44,7 @@
         "expanded": true
       },
       "environment_id": "%Env_ID%",
-      "name": "%Env_Name%"
+      "name": "Mock Environment"
     },
     "providerData": [],
     "isHold": false,

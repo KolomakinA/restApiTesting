@@ -34,12 +34,12 @@ public class Plugin {
     }
 
     @Test
-    public void findPugins () throws IOException {
+    public String findPugins () throws IOException {
         String resURI = "rlc/rest/plugin/findPlugins";
         String url = prop.getRlcURL()+ resURI;
         Get getResource = new Get(url, prop);
         String response = getResource.httpGet();
-        System.out.println(response);
+        return response;
     }
 }
 
