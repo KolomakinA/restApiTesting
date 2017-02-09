@@ -62,14 +62,12 @@ public class V2taskcollections {
 
         Post httpPost = new Post(url,file);//executing POST
 
-        JSONObject jso = new JSONObject(file);
+        JSONObject jso = new JSONObject(httpPost.httpPost());
+        System.out.println(jso.toString());
         JSONObject jsoC = new JSONObject(jso.getJSONObject("localReturn"));
-        if (jsoC.get("id") == null){
-            System.out.println("null");
-        }
-        else System.out.println(jsoC.get("id"));
+        System.out.println(jsoC.opt("id").toString());
+        return "";
 
-        return httpPost.httpPost();
     }
 }
 
