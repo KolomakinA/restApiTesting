@@ -90,7 +90,7 @@ public class V2taskcollections {
         // POST http://stl-qa-oalmt3/rlc/rest/v2/taskcollections/100089/executions?
         // {"environment": {"environment_id": "1012:1"	}}
 
-        String urlTemp = "rlc/rest/v2/taskcollections/" + "100089/" + "/executions";
+        String urlTemp = "rlc/rest/v2/taskcollections/" + tcID + "/executions";
         String url = prop.getRlcURL()+ urlTemp;
 
         Utils utils = new Utils();
