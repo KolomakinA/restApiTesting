@@ -73,9 +73,9 @@ public class V2taskcollections extends ConfigurationProperties{
 
         JSONObject jso = new JSONObject(postResult);
         //System.out.println("postTaskCollection" + jso);
-        prop.setCreatedTCId(jso.getJSONObject("localReturn").get("id").toString());//updating global variable and returning the task collection ID
+        prop.setCreatedTCId(jso.getJSONObject("localReturn").get("id").toString());
+        // /updating global variable and returning the task collection ID
         return jso.getJSONObject("localReturn").get("id").toString();
-
     }
 
     public String addTasktoTCid(String tcID, String provInstUUID, String taskName) throws IOException {
@@ -91,6 +91,24 @@ public class V2taskcollections extends ConfigurationProperties{
         String postResult = httpPost.httpPost();//executing POST
         return postResult;
 
+    }
+
+    public String addTaskWithParm(String tcID2, String provInstUUID, String taskName) throws Exception{
+        String resURI = "rlc/rest/v2/taskcollections/" + "100138" + "/tasks";//making an URL
+        String url = prop.getRlcURL()+ resURI;
+        Utils util = new Utils();
+        String file = util.readFile("resources\\jsonTemplates\\createTaskWithParm.json");//read a json template
+        file = file.replace("%Prov_Inst_UUID%", provInstUUID);
+        file = file.replace("%Env_ID%", prop.getMockEnvironmentId());
+        file = file.replace("%Task_Title%", taskName);
+        Post httpPost = new Post(url,file);//forming POST
+        String postResult = httpPost.httpPost();//executing POST
+        return postResult;
+    }
+
+    public void relateDU(){
+        //http://stl-qa-oalmt3/rlc/rest/v2/taskcollections/100177/tasks/139   PUT {"deployment_unit":[{"id":3}]}
+        return;
     }
 
     public String createRunforTaskClooection(String tcID) throws IOException{

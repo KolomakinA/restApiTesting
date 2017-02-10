@@ -52,11 +52,12 @@ public class TestRunner {
         rpFail.getTaskCollections(tcID2);
         rpFail.addTaskWithParm(tcID2, provInstUUID,"Task With Parm");
         rpFail.addDUsToTC(tcID2);
+        int id = getDUsforTC(tcID2);
         rpFail.relateDU(id?);
         rpFail.createRunforTaskClooection(tcID);
         rpFail.srartTCRun(tcID);
         rpFail.checkRunExecution(tcID);
-        
+
 
 
     }
