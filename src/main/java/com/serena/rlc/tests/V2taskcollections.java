@@ -102,8 +102,8 @@ public class V2taskcollections {
         String url = prop.getRlcURL()+ urlTemp;
 
         Utils utils = new Utils();
-
-        String prop = "{\"environment\":{\"environment_id\":\"1012:1\"\t}}";
+        String env_id = prop.getMockEnvironmentId();
+        String prop = "{\"environment\":{\"environment_id\":\"9999:9\"\t}}";
         Post run = new Post(url,prop);
         try {
             String postResult = run.httpPost();
