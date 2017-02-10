@@ -171,7 +171,9 @@ public class V2taskcollections extends ConfigurationProperties{
         Get httpGet = new Get(url);
         String getResult = httpGet.httpGet();
 
-        return getResult;
+        JSONObject jsno = new JSONObject(getResult);
+
+        return jsno.getJSONArray("localReturn").getJSONObject(0).get("id").toString();
     }
 }
 
