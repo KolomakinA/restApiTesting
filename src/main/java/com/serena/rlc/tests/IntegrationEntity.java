@@ -18,8 +18,15 @@ public class IntegrationEntity {
         prop.setSbmUserPass("");
     }
 
-    public String findProviders () throws IOException {//only execution providers are returned somehow
-        String resURI = "rlc/rest/execution/findProviders";
+    public String findDUProviders () throws IOException {
+        String resURI = "rlc/rest/integrationEntity/findProviders?tags=deployment_unit";
+        String url = prop.getRlcURL() + resURI;
+        Get getResource = new Get(url, prop);
+        String response = getResource.httpGet();
+        return response;
+    }
+    public String findRequestProviders () throws IOException {
+        String resURI = "rlc/rest/integrationEntity/findProviders?tags=request";
         String url = prop.getRlcURL() + resURI;
         Get getResource = new Get(url, prop);
         String response = getResource.httpGet();
