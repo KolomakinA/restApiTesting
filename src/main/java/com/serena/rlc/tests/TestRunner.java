@@ -21,24 +21,20 @@ public class TestRunner {
         System.out.println("tcid =" + tcID);
         String jsonFromGetTC = rp.getTaskCollections(tcID);//Getting list of task collections
 
-        if (jsonFromGetTC.contains(tcID)){//the list should contain a ID of our task collection
-            //creating a task for the task collection, using TC id, provider instance UUID and a task name
-            rp.addTasktoTCid(tcID, provInstUUID,"Rest task Name");
-            System.out.println("Task created");
-        }else {
-            System.out.println("We were not able to find TaskCollectionID in the list of existing TaskCollection");
-            System.exit(1);
-        }
+//        if (jsonFromGetTC.contains(tcID)){//the list should contain a ID of our task collection
+//            //creating a task for the task collection, using TC id, provider instance UUID and a task name
+//            rp.addTasktoTCid(tcID, provInstUUID,"Rest task Name");
+//            System.out.println("Task created");
+//        }else {
+//            System.out.println("We were not able to find TaskCollectionID in the list of existing TaskCollection");
+//            System.exit(1);
+//        }
 
         rp.addTasktoTCid(tcID,provInstUUID,"Rest task Name");
         //Create Task POST: http://stl-qa-oalmt3/rlc/rest/v2/taskcollections/100089/tasks?
 
         //CreateRunforTaskClooection  POST http://stl-qa-oalmt3/rlc/rest/v2/taskcollections/100089/executions?
         // {"environment": {"environment_id": "1012:1"	}}
-
-        rp.addDUsToTC(tcID, duProvInstUUID);
-
-
         rp.createRunforTaskClooection(tcID);
 
         //Receive number of the Run
@@ -49,6 +45,18 @@ public class TestRunner {
 
         //Check Taskcollection Run status GET:  http://stl-qa-oalmt3/rlc/rest/v2/taskcollections/100089/executions/20/
         rp.checkRunExecution(tcID);
+
+//Failed Task Collection
+        V2taskcollections rpFail = new V2taskcollections();
+        String tcID2 = rpFail.postTaskCollection("_");
+        rpFail.getTaskCollections(tcID2);
+        rpFail.addTaskWithParm(tcID2, provInstUUID,"Task With Parm");
+        rpFail.addDUsToTC(tcID2);
+        rpFail.relateDU(id?);
+        rpFail.createRunforTaskClooection(tcID);
+        rpFail.srartTCRun(tcID);
+        rpFail.checkRunExecution(tcID);
+        
 
 
     }
