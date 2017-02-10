@@ -1,0 +1,31 @@
+{
+  "providerData": [],
+  "task_environments": [{
+    "is_applicable": true,
+    "environment": {
+      "properties": {
+        "expanded": true
+      },
+      "environment_id": "%Env_ID%",
+      "name": "Env created from SBM name",
+      "id": 1
+    },
+    "providerData": [],
+    "isHold": false,
+    "is_schedule_enabled": false,
+    "schedules": null
+  }
+  ],
+  "provider_instance_UUID": "%Prov_Inst_UUID%",
+  "title": "%Task_Title%",
+  "description": "-",
+  "action_display": "Run with Properties",
+  "action": "run_with_props",
+  "action_description": "Execute run action of the dummy mock provider with required properties.",
+  "properties": {
+    "needDu": true,
+    "requireDU": false,
+    "multipleDU": false,
+    "anyDU": false
+  }
+}
