@@ -14,6 +14,7 @@ public class TestRunner {
 
         String provInstUUID = execObject.findProviders(mockProviderName);//get execition provider instance UUID
         String duProvInstUUID = duObject.findDUProvidersAndreturnUUID(mockProviderName);//get DU provider instance UUID
+        System.out.println(provInstUUID);
 
 //Succeded Task Collection
         String tcID = rp.postTaskCollection("My super TC 1");//Creating a task collection

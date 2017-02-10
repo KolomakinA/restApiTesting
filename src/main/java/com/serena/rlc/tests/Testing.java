@@ -10,22 +10,15 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 public class Testing {
-   @BeforeTest
-    public void testBefore() throws Exception {
-       boolean b = false;
-       Assert.assertFalse(b);
-
-   }
-  //@AfterTest
-
     @Test
     public void test1() throws Exception{
+
         V2taskcollections rpFail = new V2taskcollections();
         Execution execObject = new Execution();
         IntegrationEntity duObject = new IntegrationEntity();
         String mockProviderName = "M";
         String provInstUUID = execObject.findProviders(mockProviderName);
-            String tcID2 = rpFail.postTaskCollection("TC dva");
+              String tcID2 = rpFail.postTaskCollection("TC dva");
             rpFail.getTaskCollections(tcID2);
             String taskID = rpFail.addTaskWithParm(tcID2, provInstUUID,"Task With Parm");
             rpFail.addDUsToTC(tcID2,provInstUUID);

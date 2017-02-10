@@ -2,21 +2,11 @@
   "title": "description1",
   "provider_instance_UUID": "%Prov_inst_UUID%",
   "description": null,
-  "artifact_id": "id1",
+  "artifact_id": "id2",
   "type": "snapshot",
   "url": "http://sda.serena.com/path1",
   "tags": ["deployment_unit"],
   "providerData": null,
   "name": "name1"
-}, {
-  "title": "description2",
-  "provider_instance_UUID": "%Prov_inst_UUID%",
-  "description": null,
-  "artifact_id": "id2",
-  "type": "snapshot",
-  "url": "http://sda.serena.com/path2",
-  "tags": ["deployment_unit"],
-  "providerData": null,
-  "name": "name2"
 }
 ]
