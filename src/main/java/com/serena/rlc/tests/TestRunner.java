@@ -12,15 +12,8 @@ public class TestRunner {
         Execution execObject = new Execution();
 
         String mockProviderName="M";
+        String provInstUUID = execObject.findProviders(mockProviderName);//get execition provider instance UUID
 
-        JSONObject executionProviderList = new JSONObject(execObject.findProviders());//Getting full list of installed plugins
-        JSONArray array = executionProviderList.getJSONArray("localReturn");//getting a local return
-        String provInstUUID = "";//creating a variable for mock provider instance UUID
-        for (int i = 0; i < array.length() ; i++) {
-            if (array.getJSONObject(i).get("providerName").equals(mockProviderName)){//finding an array member by its name
-               provInstUUID = array.getJSONObject(i).getString("providerUuid");//saving a UUID to the variable
-            }
-        }
 
         String tcID = rp.postTaskCollection("My super TC 1");//Creating a task collection
         //tcID = "100138";

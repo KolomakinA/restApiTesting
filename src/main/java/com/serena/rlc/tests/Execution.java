@@ -2,6 +2,8 @@ package com.serena.rlc.tests;
 
 import com.serena.rlc.common.ConfigurationProperties;
 import com.serena.rlc.common.http.Get;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -18,11 +20,20 @@ public class Execution {
         prop.setSbmUserPass("");
     }
 
-    public String findProviders () throws IOException {//only execution providers are returned somehow
+    public String findProviders (String mockProviderName) throws IOException {//only execution providers are returned somehow
         String resURI = "rlc/rest/execution/findProviders";
         String url = prop.getRlcURL() + resURI;
         Get getResource = new Get(url, prop);
         String response = getResource.httpGet();
-        return response;
+
+        JSONObject executionProviderList = new JSONObject(response);//Getting full list of installed plugins
+        JSONArray array = executionProviderList.getJSONArray("localReturn");//getting a local return
+        String provInstUUID = "";//creating a variable for mock provider instance UUID
+        for (int i = 0; i < array.length() ; i++) {
+            if (array.getJSONObject(i).get("providerName").equals(mockProviderName)){//finding an array member by its name
+                provInstUUID = array.getJSONObject(i).getString("providerUuid");//saving a UUID to the variable
+            }
+        }
+        return provInstUUID;
     }
 }
