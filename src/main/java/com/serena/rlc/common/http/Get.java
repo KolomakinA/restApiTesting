@@ -22,8 +22,15 @@ public class Get {
     }
 
     public String httpGet () throws IOException {
+
+        Utils utils = new Utils();
+        String creds = utils.base64Encode(configPropertiesObject.getSbmUserName());
+        if(utils.base64Encode(configPropertiesObject.getSbmUserPass()) != null){
+            creds=creds+utils.base64Encode(configPropertiesObject.getSbmUserPass());
+        }
+
         try {
-            return Request.Get(url).addHeader("Authorization", "Basic YWRtaW46").execute().returnContent().toString();
+            return Request.Get(url).addHeader("Authorization", "Basic "+ creds).execute().returnContent().toString();
         }
         catch (org.apache.http.client.HttpResponseException e){
             return "Http code " + e.getStatusCode() + " : " + e.getMessage();

@@ -1,6 +1,7 @@
 package com.serena.rlc.common.http;
 
 import com.serena.rlc.common.ConfigurationProperties;
+import com.serena.rlc.common.Utils;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
@@ -39,8 +40,14 @@ public class Post {
     }
 
     public String httpPost() throws IOException {
+        Utils utils = new Utils();
+        String creds = utils.base64Encode(confPropObject.getSbmUserName());
+        if(utils.base64Encode(confPropObject.getSbmUserPass()) != null){
+            creds=creds+utils.base64Encode(confPropObject.getSbmUserPass());
+        }
+
         try {
-            return Request.Post(url).addHeader("Authorization", "Basic YWRtaW46").addHeader("Content-Type","application/json").
+            return Request.Post(url).addHeader("Authorization", "Basic "+creds).addHeader("Content-Type","application/json").
                     bodyString(jsonBody, APPLICATION_JSON).execute().returnContent().toString();
         }
         catch (org.apache.http.client.HttpResponseException e){

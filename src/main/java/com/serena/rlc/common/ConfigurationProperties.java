@@ -11,7 +11,7 @@ public class ConfigurationProperties {
     private String mockEnvironmentId;
     public ConfigurationProperties(){
         this.rlcURL="http://stl-qa-oalmt3/";
-        this.sbmUserName="admin";
+        this.sbmUserName="admin:";
         this.sbmUserPass="";
         this.createdTCId="";
         this.mockEnvironmentId="9999:9";

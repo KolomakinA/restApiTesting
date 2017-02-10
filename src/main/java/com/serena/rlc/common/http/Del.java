@@ -1,6 +1,7 @@
 package com.serena.rlc.common.http;
 
 import com.serena.rlc.common.ConfigurationProperties;
+import com.serena.rlc.common.Utils;
 import org.apache.http.client.fluent.Request;
 
 import java.io.IOException;
@@ -21,8 +22,14 @@ public class Del {
     }
 
     public String httpDel() throws IOException {
+        Utils utils = new Utils();
+        String creds = utils.base64Encode(configPropertiesObject.getSbmUserName());
+        if(utils.base64Encode(configPropertiesObject.getSbmUserPass()) != null){
+            creds=creds+utils.base64Encode(configPropertiesObject.getSbmUserPass());
+        }
+
         try {
-            return Request.Delete(url).addHeader("Authorization", "Basic YWRtaW46").execute().returnContent().toString();
+            return Request.Delete(url).addHeader("Authorization", "Basic "+creds).execute().returnContent().toString();
         }
         catch (org.apache.http.client.HttpResponseException e){
             return "Http code " + e.getStatusCode() + " : " + e.getMessage();

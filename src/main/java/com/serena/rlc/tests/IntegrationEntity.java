@@ -16,7 +16,7 @@ public class IntegrationEntity {
     public IntegrationEntity() {
         this.prop = new ConfigurationProperties();
         prop.setRlcURL("http://stl-qa-oalmt3/");
-        prop.setSbmUserName("admin");
+        prop.setSbmUserName("admin:");
         prop.setSbmUserPass("");
     }
 

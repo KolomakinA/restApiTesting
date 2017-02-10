@@ -24,7 +24,7 @@ public class V2taskcollections extends ConfigurationProperties {
     public V2taskcollections() {
         this.prop = new ConfigurationProperties();
         prop.setRlcURL("http://stl-qa-oalmt3/");
-        prop.setSbmUserName("admin");
+        prop.setSbmUserName("admin:");
         prop.setSbmUserPass("");
         prop.setCreatedTCId("");
 
@@ -34,7 +34,7 @@ public class V2taskcollections extends ConfigurationProperties {
     public void deleteTaskCollection(String tcId) throws IOException {
         String resURI = "rlc/rest/v2/taskcollections/" + tcId;
         String url = prop.getRlcURL() + resURI;
-        Del delete = new Del(url);
+        Del delete = new Del(url,prop);
         String response = delete.httpDel();
         System.out.println(response);
     }
@@ -42,7 +42,7 @@ public class V2taskcollections extends ConfigurationProperties {
     public String getTaskCollections() throws IOException {
         String resURI = "rlc/rest/v2/taskcollections/";
         String url = prop.getRlcURL() + resURI;
-        Get httpGet = new Get(url);
+        Get httpGet = new Get(url,prop);
         return httpGet.httpGet();
 
     }
@@ -51,7 +51,7 @@ public class V2taskcollections extends ConfigurationProperties {
     public String getTaskCollections(String tcid) throws IOException {
         String resURI = "rlc/rest/v2/taskcollections/" + tcid;
         String url = prop.getRlcURL() + resURI;
-        Get httpGet = new Get(url);
+        Get httpGet = new Get(url,prop);
         return httpGet.httpGet();
 
     }
@@ -63,7 +63,7 @@ public class V2taskcollections extends ConfigurationProperties {
         file = file.replace("%TC_NAME%", tc_name);//put task collection name in to template
         String resURI = "rlc/rest/v2/taskcollections/";//making an URL
         String url = prop.getRlcURL() + resURI;
-        Post httpPost = new Post(url, file);//executing POST
+        Post httpPost = new Post(url, file,prop);//executing POST
         String postResult = httpPost.httpPost();
         JSONObject jso = new JSONObject(postResult);
         prop.setCreatedTCId(jso.getJSONObject("localReturn").get("id").toString()); // /updating global variable and returning the task collection ID
@@ -80,7 +80,7 @@ public class V2taskcollections extends ConfigurationProperties {
         file = file.replace("%Prov_Inst_UUID%", provInstUUID);
         file = file.replace("%Env_ID%", prop.getMockEnvironmentId());
         file = file.replace("%Task_Title%", taskName);
-        Post httpPost = new Post(url, file);//forming POST
+        Post httpPost = new Post(url, file,prop);//forming POST
         String postResult = httpPost.httpPost();//executing POST
         JSONObject jso = new JSONObject(postResult);
         System.out.println("TaskId: " + jso.getJSONObject("localReturn").get("id").toString());
@@ -96,7 +96,7 @@ public class V2taskcollections extends ConfigurationProperties {
         file = file.replace("%Prov_Inst_UUID%", provInstUUID);
         file = file.replace("%Env_ID%", prop.getMockEnvironmentId());
         file = file.replace("%Task_Title%", taskName);
-        Post httpPost = new Post(url, file);//forming POST
+        Post httpPost = new Post(url, file,prop);//forming POST
         String postResult = httpPost.httpPost();//executing POST
         JSONObject jso = new JSONObject(postResult);
         String taskID = jso.getJSONObject("localReturn").get("id").toString();
@@ -110,7 +110,7 @@ public class V2taskcollections extends ConfigurationProperties {
         Utils utils = new Utils();
         String file = utils.readFile("resources\\jsonTemplates\\addSnapshotDusToaTC.json");//read a json template
         file = file.replace("%Prov_Inst_UUID%", duProvInstUUID);
-        Post httpPost = new Post(url, file);//executing POST
+        Post httpPost = new Post(url, file,prop);//executing POST
         String postResult = httpPost.httpPost();
         return postResult;
     }
@@ -118,7 +118,7 @@ public class V2taskcollections extends ConfigurationProperties {
     public String getDUsforTC(String tcId) throws IOException {
         String resURI = "rlc/rest/v2/taskcollections/" + tcId + "/integration-entities?tagsGroupExpression=deployment_unit";
         String url = prop.getRlcURL() + resURI;
-        Get httpGet = new Get(url);
+        Get httpGet = new Get(url,prop);
         String getResult = httpGet.httpGet();
         JSONObject jsno = new JSONObject(getResult);
         String duID = jsno.getJSONArray("localReturn").getJSONObject(0).get("id").toString();
@@ -133,7 +133,7 @@ public class V2taskcollections extends ConfigurationProperties {
         Utils utils = new Utils();
         String parm = utils.readFile("resources\\jsonTemplates\\addSnapshotDusToaTC.json");//read a json template
         parm = parm.replace("%DU_ID%", duID);
-        Put relateDU = new Put(url, parm);
+        Put relateDU = new Put(url, parm,prop);
         relateDU.httpPut();
         return true;
     }
@@ -147,7 +147,7 @@ public class V2taskcollections extends ConfigurationProperties {
         Utils utils = new Utils();
         String link = utils.readFile("resources\\jsonTemplates\\startRun.json");
         link = link.replace("%Env_ID%", prop.getMockEnvironmentId());
-        Post run = new Post(url, link);
+        Post run = new Post(url, link,prop);
         try {
             String postResult = run.httpPost();
             JSONObject jsonRun = new JSONObject(postResult);
@@ -169,7 +169,7 @@ public class V2taskcollections extends ConfigurationProperties {
         String resURI = "rlc/rest/v2/taskcollections/" + tcId + "/executions/" + nubmerRun + "/start";
         String url = prop.getRlcURL() + resURI;
 
-        Put srartRun = new Put(url, "");
+        Put srartRun = new Put(url, "",prop);
         srartRun.httpPut();
         System.out.println("START");
     }
@@ -179,7 +179,7 @@ public class V2taskcollections extends ConfigurationProperties {
         String resURI = "rlc/rest/v2/taskcollections/" + tcId + "/executions/" + nubmerRun;
         String url = prop.getRlcURL() + resURI;
         Thread.sleep(5555);
-        Get statusRun = new Get(url);
+        Get statusRun = new Get(url,prop);
         String obStat = statusRun.httpGet();
         JSONObject jsonRun = new JSONObject(obStat);
         Object status = jsonRun.getJSONObject("localReturn").get("status");
