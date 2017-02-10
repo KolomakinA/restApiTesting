@@ -17,17 +17,16 @@ import java.io.IOException;
 /**
  * Created by akolomakin on 07.02.2017.
  */
-public class V2taskcollections {
+public class V2taskcollections extends ConfigurationProperties{
     int nubmerRun;
-    ConfigurationProperties prop;
+    ConfigurationProperties prop = new ConfigurationProperties();
 
     public V2taskcollections() {
-        this.prop = new ConfigurationProperties();
+       this.prop = new ConfigurationProperties();
         prop.setRlcURL("http://stl-qa-oalmt3/");
         prop.setSbmUserName("admin");
         prop.setSbmUserPass("");
         prop.setCreatedTCId("");
-
 
     }
 
@@ -54,7 +53,7 @@ public class V2taskcollections {
         String resURI = "rlc/rest/v2/taskcollections/" + tcid;
         String url = prop.getRlcURL() + resURI;
         Get httpGet = new Get(url);
-        System.out.println(url + httpGet.httpGet());
+        //System.out.println(url + httpGet.httpGet());
         return httpGet.httpGet();
 
     }
@@ -73,7 +72,7 @@ public class V2taskcollections {
         String postResult = httpPost.httpPost();
 
         JSONObject jso = new JSONObject(postResult);
-        System.out.println("postTaskCollection" + jso);
+        //System.out.println("postTaskCollection" + jso);
         prop.setCreatedTCId(jso.getJSONObject("localReturn").get("id").toString());//updating global variable and returning the task collection ID
         return jso.getJSONObject("localReturn").get("id").toString();
 
@@ -102,17 +101,18 @@ public class V2taskcollections {
         String url = prop.getRlcURL()+ urlTemp;
 
         Utils utils = new Utils();
-        String env_id = prop.getMockEnvironmentId();
-        String prop = "{\"environment\":{\"environment_id\":\"9999:9\"\t}}";
-        Post run = new Post(url,prop);
+        String link = utils.readFile("resources\\jsonTemplates\\startRun.json");
+
+        link = link.replace("%Env_ID%",prop.getMockEnvironmentId());
+        Post run = new Post(url,link);
         try {
             String postResult = run.httpPost();
-            System.out.println("res" + postResult);
+            //System.out.println("res" + postResult);
 
             JSONObject jsonRun = new JSONObject(postResult);
 
             nubmerRun = Integer.parseInt(jsonRun.getJSONObject("localReturn").get("id").toString());
-            System.out.println("nubmerRun "+ nubmerRun);
+            System.out.println("nubmerRun: "+ nubmerRun);
             return postResult;
         } catch (IOException e) {
             e.printStackTrace();
@@ -141,10 +141,9 @@ public class V2taskcollections {
         Thread.sleep(10000);
         Get statusRun = new Get(url);
         String obStat = statusRun.httpGet();
-        System.out.println(url);
-
-        System.out.println(obStat);
-        if (obStat.contains("SUCCEED")){
+        //System.out.println(url);
+        JSONObject jsonRun = new JSONObject(obStat);
+        if (jsonRun.getJSONObject("localReturn").get("status").equals("SUCCEED")){
             System.out.println("TC run is Completed");
         } else System.out.println("TC run is RUNING");;
 
