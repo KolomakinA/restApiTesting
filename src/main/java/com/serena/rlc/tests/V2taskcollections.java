@@ -161,10 +161,17 @@ public class V2taskcollections extends ConfigurationProperties{
         Post httpPost = new Post(url,file);//executing POST
         String postResult = httpPost.httpPost();
 
-        System.out.println(postResult);
         return postResult;
     }
 
-    public String ge
+    public String getDUsforTC(String tcId) throws IOException {
+        String resURI = "rlc/rest/v2/taskcollections/" + tcId + "/integration-entities?tagsGroupExpression=deployment_unit";
+        String url = prop.getRlcURL()+ resURI;
+
+        Get httpGet = new Get(url);
+        String getResult = httpGet.httpGet();
+
+        return getResult;
+    }
 }
 
