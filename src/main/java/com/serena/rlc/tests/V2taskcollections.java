@@ -126,7 +126,7 @@ public class V2taskcollections extends ConfigurationProperties {
         return duID;
     }
 
-    public void relateDU(String tcId2, String duID, String taskID) throws Exception {
+    public boolean relateDU(String tcId2, String duID, String taskID) throws Exception {
         //http://stl-qa-oalmt3/rlc/rest/v2/taskcollections/100177/tasks/139   PUT {"deployment_unit":[{"id":3}]}
         String resURI = "rlc/rest/v2/taskcollections/" + tcId2 + "/task/" + taskID;
         String url = prop.getRlcURL() + resURI;
@@ -135,7 +135,7 @@ public class V2taskcollections extends ConfigurationProperties {
         parm = parm.replace("%DU_ID%", duID);
         Put relateDU = new Put(url, parm);
         relateDU.httpPut();
-        return;
+        return true;
     }
 
     public String createRunforTaskClooection(String tcID) throws IOException {
@@ -174,7 +174,7 @@ public class V2taskcollections extends ConfigurationProperties {
         System.out.println("START");
     }
 
-    public void checkRunExecution(String tcId) throws Exception {
+    public String checkRunExecution(String tcId) throws Exception {
         //http://stl-qa-oalmt3/rlc/rest/v2/taskcollections/100089/executions/20/
         String resURI = "rlc/rest/v2/taskcollections/" + tcId + "/executions/" + nubmerRun;
         String url = prop.getRlcURL() + resURI;
@@ -186,13 +186,14 @@ public class V2taskcollections extends ConfigurationProperties {
         System.out.println(status);
         if (status.equals("SUCCEED")) {
             System.out.println("***** TC run is Completed*****");
-            return;
+            return "SUCCEED";
         }
         else if (jsonRun.getJSONObject("localReturn").get("status").equals("FAILED")) {
             System.out.println("***** Task collection is FAILED ^( ***** ");
-            return;
+            return "FAILED";
         }
         else System.out.println(" ***** TC run is RUNING? ******");
+        return "Running";
     }
 }
 

@@ -4,7 +4,6 @@ import com.serena.rlc.common.ConfigurationProperties;
 import com.serena.rlc.common.http.Get;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.junit.Assert;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.testng.annotations.*;
 
