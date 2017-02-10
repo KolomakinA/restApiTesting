@@ -87,8 +87,8 @@ public class V2taskcollections extends ConfigurationProperties{
         file = file.replace("%Prov_Inst_UUID%", provInstUUID);
         file = file.replace("%Env_ID%", prop.getMockEnvironmentId());
         file = file.replace("%Task_Title%", taskName);
-        Post httpPost = new Post(url,file);//executing POST
-        String postResult = httpPost.httpPost();
+        Post httpPost = new Post(url,file);//forming POST
+        String postResult = httpPost.httpPost();//executing POST
         return postResult;
 
     }
@@ -150,5 +150,21 @@ public class V2taskcollections extends ConfigurationProperties{
         return true;
     }
 
+    public String addDUsToTC(String tcId, String duProvInstUUID) throws IOException {
+        String resURI = "rlc/rest/v2/taskcollections/" + tcId + "/integration-entities";
+        String url = prop.getRlcURL()+ resURI;
+
+        Utils utils = new Utils();
+        String file = utils.readFile("resources\\jsonTemplates\\addSnapshotDusToaTC.json");//read a json template
+        file = file.replace("%Prov_Inst_UUID%", duProvInstUUID);
+
+        Post httpPost = new Post(url,file);//executing POST
+        String postResult = httpPost.httpPost();
+
+        System.out.println(postResult);
+        return postResult;
+    }
+
+    public String ge
 }
 

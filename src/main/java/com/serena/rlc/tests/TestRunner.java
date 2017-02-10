@@ -35,6 +35,10 @@ public class TestRunner {
 
         //CreateRunforTaskClooection  POST http://stl-qa-oalmt3/rlc/rest/v2/taskcollections/100089/executions?
         // {"environment": {"environment_id": "1012:1"	}}
+
+        rp.addDUsToTC(tcID, duProvInstUUID);
+
+
         rp.createRunforTaskClooection(tcID);
 
         //Receive number of the Run
