@@ -89,12 +89,13 @@ public class V2taskcollections extends ConfigurationProperties{
         file = file.replace("%Task_Title%", taskName);
         Post httpPost = new Post(url,file);//forming POST
         String postResult = httpPost.httpPost();//executing POST
-        return postResult;
+        JSONObject jso = new JSONObject(postResult);
+        return jso.getJSONObject("localReturn").get("id").toString();
 
     }
 
     public String addTaskWithParm(String tcID2, String provInstUUID, String taskName) throws Exception{
-        String resURI = "rlc/rest/v2/taskcollections/" + "100138" + "/tasks";//making an URL
+        String resURI = "rlc/rest/v2/taskcollections/" + tcID2 + "/tasks";//making an URL
         String url = prop.getRlcURL()+ resURI;
         Utils util = new Utils();
         String file = util.readFile("resources\\jsonTemplates\\createTaskWithParm.json");//read a json template

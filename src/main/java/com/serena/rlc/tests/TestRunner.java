@@ -51,8 +51,8 @@ public class TestRunner {
         String tcID2 = rpFail.postTaskCollection("_");
         rpFail.getTaskCollections(tcID2);
         rpFail.addTaskWithParm(tcID2, provInstUUID,"Task With Parm");
-        rpFail.addDUsToTC(tcID2);
-        int id = getDUsforTC(tcID2);
+        rpFail.addDUsToTC(tcID2, duProvInstUUID);
+        String id = getDUsforTC(tcID2);
         rpFail.relateDU(tcID2,id);
         rpFail.createRunforTaskClooection(tcID2);
         rpFail.srartTCRun(tcID2);
