@@ -36,12 +36,21 @@ public class IntegrationEntity {
         }
         return provInstUUID;
     }
-    public String findRequestProviders () throws IOException {
+    public String findRequestProviders (String mockProviderName) throws IOException {
         String resURI = "rlc/rest/integrationEntity/findProviders?tags=request";
         String url = prop.getRlcURL() + resURI;
         Get getResource = new Get(url, prop);
         String response = getResource.httpGet();
-        return response;
+
+        JSONObject duProviderList = new JSONObject(response);//Getting full list of installed plugins
+        JSONArray array = duProviderList.getJSONArray("localReturn");//getting a local return
+        String provInstUUID = "";//creating a variable for mock provider instance UUID
+        for (int i = 0; i < array.length() ; i++) {
+            if (array.getJSONObject(i).get("providerName").equals(mockProviderName)){//finding an array member by its name
+                provInstUUID = array.getJSONObject(i).getString("providerUuid");//saving a UUID to the variable
+            }
+        }
+        return provInstUUID;
     }
 
 

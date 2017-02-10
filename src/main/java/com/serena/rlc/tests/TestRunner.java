@@ -10,13 +10,14 @@ public class TestRunner {
         Plugin p = new Plugin();
         V2taskcollections rp = new V2taskcollections();
         Execution execObject = new Execution();
+        IntegrationEntity duObject = new IntegrationEntity();
 
         String mockProviderName="M";
         String provInstUUID = execObject.findProviders(mockProviderName);//get execition provider instance UUID
+        String duProvInstUUID = duObject.findDUProvidersAndreturnUUID(mockProviderName);//get DU provider instance UUID
 
 
         String tcID = rp.postTaskCollection("My super TC 1");//Creating a task collection
-        //tcID = "100138";
         System.out.println("tcid =" + tcID);
         String jsonFromGetTC = rp.getTaskCollections(tcID);//Getting list of task collections
 
