@@ -15,7 +15,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Created by akolomakin on 07.02.2017.
+ * Created by akolomakin and olazarenko on 07.02.2017.
  */
 public class V2taskcollections extends ConfigurationProperties {
     int nubmerRun;
@@ -38,13 +38,20 @@ public class V2taskcollections extends ConfigurationProperties {
         String response = delete.httpDel();
         System.out.println(response);
     }
+    //get all task collections
+    public String getTaskCollections() throws IOException {
+        String resURI = "rlc/rest/v2/taskcollections/";
+        String url = prop.getRlcURL() + resURI;
+        Get httpGet = new Get(url);
+        return httpGet.httpGet();
+
+    }
 
     //get particular task collection
     public String getTaskCollections(String tcid) throws IOException {
         String resURI = "rlc/rest/v2/taskcollections/" + tcid;
         String url = prop.getRlcURL() + resURI;
         Get httpGet = new Get(url);
-        // System.out.println(url + httpGet.httpGet());
         return httpGet.httpGet();
 
     }
@@ -54,26 +61,20 @@ public class V2taskcollections extends ConfigurationProperties {
         Utils utils = new Utils();
         String file = utils.readFile("resources\\jsonTemplates\\postTaskCollection.json");//read a json template
         file = file.replace("%TC_NAME%", tc_name);//put task collection name in to template
-
         String resURI = "rlc/rest/v2/taskcollections/";//making an URL
         String url = prop.getRlcURL() + resURI;
-
         Post httpPost = new Post(url, file);//executing POST
         String postResult = httpPost.httpPost();
-
         JSONObject jso = new JSONObject(postResult);
-        //System.out.println("postTaskCollection" + jso);
-        prop.setCreatedTCId(jso.getJSONObject("localReturn").get("id").toString());
-        // /updating global variable and returning the task collection ID
+        prop.setCreatedTCId(jso.getJSONObject("localReturn").get("id").toString()); // /updating global variable and returning the task collection ID
         String getTCID = jso.getJSONObject("localReturn").get("id").toString();
         System.out.println("TCID =" + getTCID);
         return getTCID;
     }
-
+    //Add a task wirhout parameters for mock provider
     public String addTasktoTCid(String tcID, String provInstUUID, String taskName) throws IOException {
         String resURI = "rlc/rest/v2/taskcollections/" + tcID + "/tasks";//making an URL
         String url = prop.getRlcURL() + resURI;
-
         Utils utils = new Utils();
         String file = utils.readFile("resources\\jsonTemplates\\createTaskForMockProvider.json");//read a json template
         file = file.replace("%Prov_Inst_UUID%", provInstUUID);
@@ -82,6 +83,7 @@ public class V2taskcollections extends ConfigurationProperties {
         Post httpPost = new Post(url, file);//forming POST
         String postResult = httpPost.httpPost();//executing POST
         JSONObject jso = new JSONObject(postResult);
+        System.out.println("TaskId: " + jso.getJSONObject("localReturn").get("id").toString());
         return jso.getJSONObject("localReturn").get("id").toString();
 
     }
@@ -105,24 +107,19 @@ public class V2taskcollections extends ConfigurationProperties {
     public String addDUsToTC(String tcId, String duProvInstUUID) throws IOException {
         String resURI = "rlc/rest/v2/taskcollections/" + tcId + "/integration-entities";
         String url = prop.getRlcURL() + resURI;
-
         Utils utils = new Utils();
         String file = utils.readFile("resources\\jsonTemplates\\addSnapshotDusToaTC.json");//read a json template
         file = file.replace("%Prov_Inst_UUID%", duProvInstUUID);
-
         Post httpPost = new Post(url, file);//executing POST
         String postResult = httpPost.httpPost();
-
         return postResult;
     }
 
     public String getDUsforTC(String tcId) throws IOException {
         String resURI = "rlc/rest/v2/taskcollections/" + tcId + "/integration-entities?tagsGroupExpression=deployment_unit";
         String url = prop.getRlcURL() + resURI;
-
         Get httpGet = new Get(url);
         String getResult = httpGet.httpGet();
-
         JSONObject jsno = new JSONObject(getResult);
         String duID = jsno.getJSONArray("localReturn").getJSONObject(0).get("id").toString();
         System.out.println("duID = " + duID);
@@ -147,18 +144,13 @@ public class V2taskcollections extends ConfigurationProperties {
 
         String urlTemp = "rlc/rest/v2/taskcollections/" + tcID + "/executions";
         String url = prop.getRlcURL() + urlTemp;
-
         Utils utils = new Utils();
         String link = utils.readFile("resources\\jsonTemplates\\startRun.json");
-
         link = link.replace("%Env_ID%", prop.getMockEnvironmentId());
         Post run = new Post(url, link);
         try {
             String postResult = run.httpPost();
-            //System.out.println("res" + postResult);
-
             JSONObject jsonRun = new JSONObject(postResult);
-
             nubmerRun = Integer.parseInt(jsonRun.getJSONObject("localReturn").get("id").toString());
             System.out.println("nubmerRun: " + nubmerRun);
             return postResult;
@@ -190,17 +182,17 @@ public class V2taskcollections extends ConfigurationProperties {
         Get statusRun = new Get(url);
         String obStat = statusRun.httpGet();
         JSONObject jsonRun = new JSONObject(obStat);
-        //System.out.println(url + jsonRun);
         Object status = jsonRun.getJSONObject("localReturn").get("status");
         System.out.println(status);
         if (status.equals("SUCCEED")) {
             System.out.println("***** TC run is Completed*****");
             return;
         }
-        if (jsonRun.getJSONObject("localReturn").get("status").equals("FAILED")) {
+        else if (jsonRun.getJSONObject("localReturn").get("status").equals("FAILED")) {
             System.out.println("***** Task collection is FAILED ^( ***** ");
             return;
-        } else System.out.println(" ***** TC run is RUNING? ******");
+        }
+        else System.out.println(" ***** TC run is RUNING? ******");
     }
 }
 

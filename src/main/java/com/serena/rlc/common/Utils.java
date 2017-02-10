@@ -5,7 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 /**
- * Created by akolomakin on 27.01.2017.
+ * Created by akolomakin and olazarenko on 07.02.2017.
  */
 public class Utils {
     public String base64Encode(String encode) {

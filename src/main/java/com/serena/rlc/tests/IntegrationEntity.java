@@ -8,7 +8,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 /**
- * Created by akolomakin on 10.02.2017.
+ * Created by akolomakin and olazarenko on 07.02.2017.
  */
 public class IntegrationEntity {
     ConfigurationProperties prop;

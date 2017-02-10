@@ -20,7 +20,7 @@ import java.util.List;
 import static org.apache.http.entity.ContentType.APPLICATION_JSON;
 
 /**
- * Created by akolomakin on 31.01.2017.
+ * Created by akolomakin and olazarenko on 07.02.2017.
  */
 public class Post {
     private String url;

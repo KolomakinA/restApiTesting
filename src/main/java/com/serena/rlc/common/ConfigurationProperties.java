@@ -1,7 +1,7 @@
 package com.serena.rlc.common;
 
 /**
- * Created by akolomakin on 27.01.2017.
+ * Created by akolomakin and olazarenko on 07.02.2017.
  */
 public class ConfigurationProperties {
     private String rlcURL;

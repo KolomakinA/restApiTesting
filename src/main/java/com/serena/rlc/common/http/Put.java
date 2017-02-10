@@ -8,7 +8,7 @@ import java.io.IOException;
 import static org.apache.http.entity.ContentType.APPLICATION_JSON;
 
 /**
- * Created by akolomakin on 08.02.2017.
+ * Created by akolomakin and olazarenko on 07.02.2017.
  */
 public class Put {
     private String url;

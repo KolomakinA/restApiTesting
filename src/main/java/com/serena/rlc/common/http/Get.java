@@ -6,7 +6,7 @@ import org.apache.http.client.fluent.Request;
 import java.io.IOException;
 
 /**
- * Created by akolomakin on 30.01.2017.
+ * Created by akolomakin and olazarenko on 07.02.2017.
  */
 public class Get {
     private String url;
