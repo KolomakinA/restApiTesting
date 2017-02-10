@@ -128,6 +128,7 @@ public class V2taskcollections extends ConfigurationProperties {
 
     public boolean relateDU(String tcId2, String duID, String taskID) throws Exception {
         //http://stl-qa-oalmt3/rlc/rest/v2/taskcollections/100177/tasks/139   PUT {"deployment_unit":[{"id":3}]}
+
         String resURI = "rlc/rest/v2/taskcollections/" + tcId2 + "/task/" + taskID;
         String url = prop.getRlcURL() + resURI;
         Utils utils = new Utils();
@@ -137,6 +138,7 @@ public class V2taskcollections extends ConfigurationProperties {
         relateDU.httpPut();
         return true;
     }
+
 
     public String createRunforTaskClooection(String tcID) throws IOException {
         // POST http://stl-qa-oalmt3/rlc/rest/v2/taskcollections/100089/executions?
